@@ -1,8 +1,28 @@
 <html>
 <head>
     <title>My Canvas</title>
+    <link rel="stylesheet" type="text/css" href="./style.css">
 </head>
-    <input id="hex" placeholder="enter hex color"></input>
-    <canvas id="draw"></canvas>
     <script src="app.js"></script>
+<body>
+    <section>
+        <div id="tools">
+            <div id="colors">
+                <button id="black" onclick="changeColor('black')" style="margin-left: 20px;"></button>
+                <button id="red" onclick="changeColor('red')"></button>
+                <button id="blue" onclick="changeColor('#0000ff')"></button>
+                <button id="yellow" onclick="changeColor('#ffff66')"></button>
+                <button id="green" onclick="changeColor('#4ca64c')"></button>
+            </div>
+            <div id="misc">
+                <button id="clear" onclick="clearCanvas()">Clear</button>
+                <a id="download" href="#" class="down"" download="draw.png">Download</a>
+
+            </div>
+        </div>
+        <canvas id="canvas" width="1850" height="850"></canvas>
+    </section>
+    <script src="app.js"></script>
+
+</body>
 </html>

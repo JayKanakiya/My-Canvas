@@ -1,41 +1,39 @@
-var canvas = document.getElementById('draw');
+var canvas = document.getElementById('canvas');
+var context = canvas.getContext('2d');
+var down = false;
+context.lineWidth = 10
+document.getElementById('download').addEventListener("click", downloadFile);
+ canvas.addEventListener("mousemove", draw);
+ canvas.addEventListener("mousedown",function(){
+     down = true;
+     context.beginPath();
+     context.moveTo(x,y);
+     canvas.addEventListener("mousemove",draw);
+ })
+canvas.addEventListener("mouseup",function(){
+    down=false;
+})
+ function draw(e){
+     x = e.clientX - canvas.offsetLeft;
+     y = e.clientY - canvas.offsetTop;
+     if(down==true){
+         context.lineTo(x,y);
+         context.stroke();
+     }
+ }
 
-  var ctx = canvas.getContext('2d');
-  resize();
+ function changeColor(color){
+     context.strokeStyle = color;
+ }
 
-  function resize() {
-    ctx.canvas.width = window.innerWidth;
-    ctx.canvas.height = window.innerHeight;
+ function clearCanvas(){
+     context.clearRect(0,0,canvas.width,canvas.height);
+ }
+function setwidth(){
+    curr = brushwidth.value;
 }
-
-  // add event listeners to specify when functions should be triggered
-  window.addEventListener('resize', resize);
-  document.addEventListener('mousemove', draw);
-  document.addEventListener('mousedown', setPosition);
-  document.addEventListener('mouseenter', setPosition);
-
-  // last known position
-  var pos = { x: 0, y: 0 };
-
-  // new position from mouse events
-  function setPosition(e) {
-    pos.x = e.clientX;
-    pos.y = e.clientY;
-  }
-
-  function draw(e) {
-
-    if (e.buttons !== 1) return;
-
-    var color = document.getElementById('hex').value;
-
-    ctx.beginPath();
-    ctx.lineWidth = 20;
-    ctx.lineCap = 'round';
-    ctx.strokeStyle = color;
-    ctx.moveTo(pos.x, pos.y);
-    setPosition(e);
-    ctx.lineTo(pos.x, pos.y); 
-    ctx.stroke();
-
-   }
+ function downloadFile() {
+ 	var button = document.getElementById('download');
+ 	var dataURL = canvas.toDataURL('image/png');
+ 	button.href = dataURL;
+ }
